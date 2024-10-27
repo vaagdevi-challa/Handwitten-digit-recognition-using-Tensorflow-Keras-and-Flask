@@ -14,7 +14,7 @@ It is a simple web application that recognizes handwritten digits (0-9) using a 
 ## Project Structure
 
 ```plaintext
-DigitDetect/  
+Handwritten-digit-recognition-using-Tensorflow-Keras-and-Flask/  
 ├── requirements.txt  # To install all libraries needed
 ├── index.html   # Main HTML file
 ├── digit_recognition_model_cnn.h5     # Trained Keras model file
