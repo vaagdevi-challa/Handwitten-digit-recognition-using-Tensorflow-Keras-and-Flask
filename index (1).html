@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digit Recognition</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+        #canvasDiv {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        #buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;">Draw a digit</h1>
+    <div id="canvasDiv">
+        <canvas id="canvas" width="280" height="280"></canvas>
+    </div>
+    <div id="buttons">
+        <button onclick="clearCanvas()">Clear</button>
+        <button onclick="predictDigit()">Predict</button>
+    </div>
+    <h2 id="result" style="text-align:center;"></h2>
+
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        var mousePressed = false;
+        canvas.addEventListener('mousedown', function () {
+            mousePressed = true;
+        });
+
+        canvas.addEventListener('mouseup', function () {
+            mousePressed = false;
+        });
+
+        canvas.addEventListener('mousemove', function (e) {
+            if (mousePressed) {
+                draw(e.pageX - canvas.offsetLeft, e.pageY - canvas.offsetTop);
+            }
+        });
+
+        function draw(x, y) {
+            ctx.fillStyle = "black";
+            ctx.beginPath();
+            ctx.arc(x, y, 10, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function predictDigit() {
+            var canvasData = canvas.toDataURL("image/png");
+            fetch('/predict', {
+                method: 'POST',
+                body: JSON.stringify({ image: canvasData }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = "Predicted Digit: " + data.digit;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
