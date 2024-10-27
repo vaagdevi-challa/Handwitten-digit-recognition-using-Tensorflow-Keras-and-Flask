@@ -1,5 +1,4 @@
 
-```markdown
 #  Handwritten Digit Recognition
 
 It is a simple web application that recognizes handwritten digits (0-9) using a neural network built with Keras and TensorFlow. The model is deployed using Flask, allowing users to draw digits in a web browser, which are then classified by the model.
@@ -81,5 +80,5 @@ We got 95% accuracy while training the model
 - **JavaScript** for handling canvas drawing and sending requests to the back-end.
 
 ## output
-![Alt text](![Screenshot 2024-10-24 055343](https://github.com/user-attachments/assets/200c22f2-320f-434f-9e24-503c52a3bafe)
+(![Screenshot 2024-10-24 055343](https://github.com/user-attachments/assets/200c22f2-320f-434f-9e24-503c52a3bafe)
 )
